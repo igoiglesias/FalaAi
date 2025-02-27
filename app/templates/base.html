@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>{% block title %}Hefesto{% endblock %}</title>
+    
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', path='css/pico.blue.min.css') }}">
+    <style>
+        *{
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal !important;
+        }
+        main{
+            padding: 10px;
+            max-width: 1024px;
+            margin: 0 auto;
+        }
+        footer{
+            max-width: 1024px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    </style>
+    
+    <!-- Adicione aqui mais metatags ou links de CSS conforme necessário -->
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <main>
+        <div class="content">
+            {% block content %}
+            <!-- O conteúdo específico da página será inserido aqui -->
+            {% endblock %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 FalaAi</p>
+    </footer>
+
+    <!-- Scripts JS (se necessário) -->
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>

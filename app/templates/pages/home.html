@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Gerador - My FastAPI Project{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1>{{ slogan }}</h1>
+    <p>Digite um texto abaixo e converta para áudio!</p>
+
+    <form id="ttsForm" method="POST" action="/">
+        <label for="textInput">Seu texto:</label>
+        <textarea id="textInput" name="text" rows="4" placeholder="Digite algo aqui..."></textarea>
+        <button type="submit">Converter para Áudio</button>
+    </form>
+
+    <!-- Se a resposta incluir o áudio, exibe o player e o botão de download -->
+    <section id="audioSection" style="display: none;">
+        <!-- Aqui o player de áudio será renderizado depois que o servidor enviar o arquivo de áudio -->
+        <h2>Resultado</h2>
+        <audio controls id="audio" src="">
+        </audio>
+        <hr>
+        <a href="" id="button" class="secondary" download="falaai_audio.mp3">Baixar Áudio</a>
+    </section>
+</main>
+<script>
+    document.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const texto = document.getElementById('textInput')
+        const audioSRC = document.getElementById('audio')
+        const buttonHREF = document.getElementById('button')
+        const audioSection = document.getElementById('audioSection')
+        if (texto){
+            fetch(
+                "/",
+                {
+                    headers: {"content-type": "application/json"},
+                    method:'post',
+                    body: JSON.stringify({ "texto": texto.value})
+                }
+            )
+            .then(res => res.json())
+            .then(res => {
+                const audioURL = "/static/audios/"+res.file_name
+                audioSRC.setAttribute('src', audioURL)
+                buttonHREF.setAttribute('href', audioURL)
+                audioSection.style.display = 'Block'
+            });
+        }
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,9 @@
+fastapi
+tortoise-orm
+jinja2
+pydantic-settings
+python-multipart
+uvicorn
+gunicorn
+celery
+redis
