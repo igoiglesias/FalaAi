@@ -1,8 +1,9 @@
 
 
-from pydantic import BaseModel
+from typing import Annotated
+from pydantic import BaseModel, Field
 
 
 class Texto(BaseModel):
     
-    texto: str
+    texto: Annotated[str, Field(max_length=1000)]

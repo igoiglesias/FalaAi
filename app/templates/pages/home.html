@@ -9,10 +9,10 @@
 
     <form id="ttsForm" method="POST" action="/">
         <label for="textInput">Seu texto:</label>
-        <textarea id="textInput" name="text" rows="4" placeholder="Digite algo aqui..."></textarea>
+        <textarea id="textInput" name="text" rows="4" placeholder="Digite algo aqui..." autofocus required maxlength="1000"></textarea>
         <button type="submit">Converter para Áudio</button>
     </form>
-
+    <span id="loader" aria-busy="true" style="display: none;">Gerando áudio...</span>
     <!-- Se a resposta incluir o áudio, exibe o player e o botão de download -->
     <section id="audioSection" style="display: none;">
         <!-- Aqui o player de áudio será renderizado depois que o servidor enviar o arquivo de áudio -->
@@ -24,28 +24,49 @@
     </section>
 </main>
 <script>
+    function loading(state){
+        const loader = document.getElementById('loader')
+        if (loader){
+            if (state){
+                loader.style.display = 'block'
+            } else {
+                loader.style.display = 'none'
+            }
+        }
+    }
+    function fetchAudio(body){
+        fetch(
+            "/",
+            {
+                headers: {"content-type": "application/json"},
+                method:'post',
+                body: JSON.stringify(body)
+            }
+        )
+        .then(res => res.json())
+        .then(res => {
+            loadAudio(res)
+        });
+    }
+    function loadAudio(response){
+        const audioSection = document.getElementById('audioSection')
+        const audioSRC = document.getElementById('audio')
+        const buttonHREF = document.getElementById('button')
+        const audioURL = "/static/audios/"+response.file_name
+        audioSRC.setAttribute('src', audioURL)
+        buttonHREF.setAttribute('href', audioURL)
+        audioSection.style.display = 'block'
+        loading(false)
+    }
     document.addEventListener("submit", (e) => {
         e.preventDefault()
         const texto = document.getElementById('textInput')
-        const audioSRC = document.getElementById('audio')
-        const buttonHREF = document.getElementById('button')
-        const audioSection = document.getElementById('audioSection')
-        if (texto){
-            fetch(
-                "/",
-                {
-                    headers: {"content-type": "application/json"},
-                    method:'post',
-                    body: JSON.stringify({ "texto": texto.value})
-                }
-            )
-            .then(res => res.json())
-            .then(res => {
-                const audioURL = "/static/audios/"+res.file_name
-                audioSRC.setAttribute('src', audioURL)
-                buttonHREF.setAttribute('href', audioURL)
-                audioSection.style.display = 'Block'
-            });
+        if (texto && texto.value){
+            const audioSection = document.getElementById('audioSection')
+            audioSection.style.display = 'none'
+            loading(true)
+            const body = {"texto": texto.value}
+            fetchAudio(body)
         }
     })
 </script>
