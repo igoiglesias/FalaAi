@@ -7,4 +7,5 @@ uvicorn
 gunicorn
 celery
 redis
+gtts
 BeautifulSoup4
