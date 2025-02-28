@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
-    <title>{% block title %}Hefesto{% endblock %}</title>
+    
+    <meta name="author" content="Agência Camp">
+    <meta name="description" content="FalaAi - Converta texto em áudio de forma rápida e fácil! Digite um texto e transforme em voz instantaneamente.">
+    <meta name="keywords" content="FalaAi, texto para áudio, conversor de texto para voz, sintetizador de voz, TTS online, conversão de texto para fala, text-to-speech, Agência Camp">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:title" content="FalaAi - Conversor de Texto para Voz | Transforme Texto em Áudio">
+    <meta property="og:description" content="Digite um texto e converta para áudio com apenas um clique. Experimente o FalaAi agora!">
+    <meta property="og:image" content="{{ url_for('static', path='imgs/cover.jpg')}}">
+    <meta property="og:url" content="https://falaai.agenciacamp.com.br">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="FalaAi">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FalaAi - Conversor de Texto para Áudio Online">
+    <meta name="twitter:description" content="Transforme qualquer texto em voz com um clique. Simples, rápido e gratuito!">
+    <meta name="twitter:image" content="{{ url_for('static', path='imgs/cover.jpg')}}">
+    <meta name="twitter:site" content="@agenciacamp">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><text x='50%' y='50%' font-size='80' font-family='Arial' fill='black' text-anchor='middle' alignment-baseline='middle'>🤖</text></svg>" type="image/svg+xml">
+    <meta name="theme-color" content="#ff5722">
+
+    <title>{% block title %}FalaAi{% endblock %}</title>
     
     <!-- Link para o arquivo CSS -->
     <link rel="stylesheet" href="{{ url_for('static', path='css/pico.blue.min.css') }}">
@@ -39,7 +61,7 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2024 FalaAi</p>
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> FalaAi. Todos os direitos reservados.</p>
     </footer>
 
     <!-- Scripts JS (se necessário) -->
