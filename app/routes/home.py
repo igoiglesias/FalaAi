@@ -1,7 +1,5 @@
 from random import choice
-from typing import Annotated
-from fastapi import APIRouter, Request, Form
-from fastapi.responses import RedirectResponse
+from fastapi import APIRouter, Request
 
 from ..bootstrap import templates
 from ..services.home import Home as Home_Service
@@ -28,6 +26,6 @@ async def index(request: Request):
 @router.post("/")
 async def post_text(request: Request, body: Texto_Model):
     """Post Texto."""
-    file_name = await home_svc.text_to_audio(body.texto)
+    file_name = await home_svc.text_to_audio(body.texto, request)
     return {"file_name": file_name }
     
