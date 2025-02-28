@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request
 
 from ..bootstrap import templates
 from ..models.input_model import Login as Login_Model
-from ..models.conversoes import Convesoes as Conversoes_Model
+from ..models.models import Convesoes as Conversoes_Model
 from ..services.auth import Auth as Auth_Service
 
 auth_svc = Auth_Service()

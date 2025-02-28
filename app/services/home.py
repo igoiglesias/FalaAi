@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from fastapi import Request
 
 from ..modules.tts import sintetizar_audio
-from ..models.conversoes import Convesoes
+from ..models.models import Convesoes
 
 
 class Home:
