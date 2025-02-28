@@ -170,3 +170,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 app/static/audios/*
+app/database/db.sqlite*
