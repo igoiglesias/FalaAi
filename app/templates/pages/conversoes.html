@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}FalaAi - Login{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h1>Lista de Conversões</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Texto</th>
+                <th>Áudio</th>
+                <th>IP</th>
+                <th>Data</th>
+                <th>Deletado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in conversoes %}
+            <tr>
+                <td>{{item.texto}}</td>
+                <td>{{item.audio}}</td>
+                <td>{{item.ip}}</td>
+                <td>{{item.created_at.strftime('%d/%m/%Y %H:%M')}}</td>
+                <td>{{item.deletado and 'Sim' or 'Não' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+<script>
+    
+</script>
+{% endblock %}

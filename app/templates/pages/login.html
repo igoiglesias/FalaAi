@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}FalaAi - Login{% endblock %}
+
+{% block content %}
+<main class="container">
+    <h2 style="text-align: center; font-size: 1.5rem;">Login</h2>
+    <form action="/login" method="POST">
+        <div>
+            <label for="username">Usuário</label>
+            <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+        </div>
+        <div>
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+        </div>
+        <div>
+            <button type="submit" class="primary" style="width: 100%;">Entrar</button>
+        </div>
+        <span id="loader" aria-busy="true" style="display: none;">Logando...</span>
+    </form>
+</main>
+<script>
+    function alert(msg, type){
+        const alert = document.getElementById('alert')
+        const alertMsg = document.getElementById('alert-msg')
+        if (alert && alertMsg){
+            alert.style.display = 'block';
+            alert.classList.add(type)
+            alertMsg.innerText = msg
+            setTimeout(()=>{
+                alert.style.display = 'none';
+                alert.classList.remove(type)
+                alertMsg.innerText = ''
+            }, 3000);
+        }
+    }
+    function loading(state){
+        const loader = document.getElementById('loader')
+        if (loader){
+            if (state){
+                loader.style.display = 'block'
+            } else {
+                loader.style.display = 'none'
+            }
+        }
+    }
+    function doLogin(body){
+        fetch(
+            "/admin/login",
+            {
+                headers: {"content-type": "application/json"},
+                method:'post',
+                body: JSON.stringify(body)
+            }
+        )
+        .then(res => {
+            console.log(res)
+            if(res.status === 200){
+                return res.json()
+            }
+            loading(false)
+            alert("Erro ao fazer login.", 'error')
+            throw new Error("Erro ao fazer login.");
+        })
+        .then(res => {
+            window.location.href="/admin/conversoes"
+        });
+    }
+    document.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const username = document.getElementById('username')
+        const password = document.getElementById('password')
+        if (username && username.value && password && password.value){
+            loading(true)
+            const body = {
+                "usuario": username.value,
+                "senha": password.value
+            }
+            doLogin(body)
+        }
+    })
+</script>
+{% endblock %}
