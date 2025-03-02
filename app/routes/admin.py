@@ -4,8 +4,10 @@ from ..bootstrap import templates
 from ..models.input_model import Login as Login_Model
 from ..models.models import Convesoes as Conversoes_Model
 from ..services.auth import Auth as Auth_Service
+from ..services.conversoes import Conversoes as Conversoes_Service
 
 auth_svc = Auth_Service()
+conversoes_svc = Conversoes_Service()
 
 router = APIRouter(
     prefix="/admin"
@@ -35,6 +37,8 @@ async def get_conversoes(request: Request):
         "pages/conversoes.html",
         {
             "request": request,
-            "conversoes": conversoes
+            "conversoes": conversoes,
+            "disco" : conversoes_svc.get_disk_usage(),
+            "memoria" : conversoes_svc.get_memory_usage(),
         }
     )

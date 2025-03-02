@@ -4,29 +4,43 @@
 
 {% block content %}
 <main class="container">
-    <h1>Lista de Conversões</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Texto</th>
-                <th>Áudio</th>
-                <th>IP</th>
-                <th>Data</th>
-                <th>Deletado</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in conversoes %}
-            <tr>
-                <td>{{item.texto}}</td>
-                <td>{{item.audio}}</td>
-                <td>{{item.ip}}</td>
-                <td>{{item.created_at.strftime('%d/%m/%Y %H:%M')}}</td>
-                <td>{{item.deletado and 'Sim' or 'Não' }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <h1>Painel</h1>
+    <hr>
+    <section>
+        <h5>Informações do Sistema</h5>
+        <small><strong>Disco</strong></small>
+        <small><strong>Total:</strong> {{ disco.total }} <strong>Usado:</strong> {{ disco.usado }} <strong>Livre:</strong> {{ disco.livre }}</small>
+        <progress value="{{ disco.percentual_usado.split('%')[0] }}" max="100" title="{{ disco.percentual_usado }} usado"></progress>
+        <small><strong>Memória</strong></small>
+        <small><strong>Total:</strong> {{ memoria.total }} <strong>Usado:</strong> {{ memoria.usado }} <strong>Livre:</strong> {{ memoria.livre }}</small>
+        <progress value="{{ memoria.percentual_usado.split('%')[0] }}" max="100" title="{{ memoria.percentual_usado }} usado"></progress>
+    </section>
+    <hr>
+    <section>
+        <h5>Áudios Gerados</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Texto</th>
+                    <th>Áudio</th>
+                    <th>IP</th>
+                    <th>Data</th>
+                    <th>Deletado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in conversoes %}
+                <tr>
+                    <td title="{{item.texto}}">{{item.texto[0:6]}}...</td>
+                    <td>{{item.audio}}</td>
+                    <td>{{item.ip}}</td>
+                    <td>{{item.created_at.strftime('%d/%m/%Y %H:%M')}}</td>
+                    <td>{{item.deletado and 'Sim' or 'Não' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 </main>
 <script>
     
