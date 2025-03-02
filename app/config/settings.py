@@ -13,6 +13,13 @@ class Settings(BaseSettings):
     TEMPLATE_FOLDER: str = "app/templates"
     STATIC_FOLDER: str = "app/static"
     
+    SECRET_KEY: str = "mysecretkey"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 3600
+    TOKEN_KEY: str = "access_token"
+    TOKEN_SAMESITE: str = "samesite"
+    TOKEN_HTTPONLY: bool = True
+        
     SLOGANS: list = [
     "FalaAi – Porque nem o HAL 9000 fala sozinho! 🤖",
     "FalaAi – Transformando texto em áudio mais rápido que o C-3PO traduzindo! 🚀",
