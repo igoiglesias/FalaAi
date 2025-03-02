@@ -14,12 +14,7 @@ class Auth:
     
     async def login(self, usuario: str, senha: str) -> JSONResponse:
         if usuario=='aidmin' and senha=='aidmin':
-            expire = datetime.now() + timedelta(minutes=Settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-            data = {
-                "sub": usuario,
-                "exp": expire
-            }
-            token = jwt.encode(data, Settings.SECRET_KEY, algorithm=Settings.ALGORITHM)
+            token = self.generate_token({"sub": usuario})
             response = JSONResponse(content={"message": "Login realizado com sucesso!"})
             response.set_cookie(
                 key=Settings.TOKEN_KEY,
@@ -31,7 +26,15 @@ class Auth:
             
             return response
         return JSONResponse(status_code=401, content={"message": "Credenciais inválidas"})
-    
+
+    def generate_token(self, data: dict) -> str:
+        expire = datetime.now() + timedelta(minutes=Settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        data = {
+            **data,
+            "exp": expire
+        }
+        return jwt.encode(data, Settings.SECRET_KEY, algorithm=Settings.ALGORITHM)
+
     def is_auth(self):
         def decorator(fn):
             @functools.wraps(fn)
