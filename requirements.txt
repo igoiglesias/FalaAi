@@ -10,3 +10,4 @@ redis
 gtts
 BeautifulSoup4
 pyjwt
+psutil
