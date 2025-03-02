@@ -8,6 +8,10 @@
 - **Ideal para acessibilidade**, automação e criação de conteúdos
 
 ### Como usar:
+
+![Tela inicial do FalaAi](https://falaai.agenciacamp.com.br/static/imgs/home-print.png)
+
+
 1. Acesse a aplicação em: [FalaAi](https://falaai.agenciacamp.com.br/)
 2. Digite o texto que deseja converter.
 3. ~~Escolha a voz desejada.~~
