@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.exceptions import HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 from .config.settings import settings
 from .database.connection import init_db, close_db
@@ -35,6 +36,14 @@ app.mount(
     '/static',
     StaticFiles(directory=settings.STATIC_FOLDER),
     name="static"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.exception_handler(HTTPException)

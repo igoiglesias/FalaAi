@@ -1,4 +1,5 @@
 import logging
+from typing import List
 from pydantic_settings import BaseSettings
 
 
@@ -7,6 +8,11 @@ class Settings(BaseSettings):
     APP_VERSION: str = "0.0.1"
     DEBUG: bool = True
     LOGGING_LEVEL: int = logging.INFO
+
+    CORS: List[str] = [
+        "localhost",
+        "falaai.agenciacamp.com.br",
+    ]
     
     DATABASE_URL: str = "sqlite://app/database/db.sqlite3"
     
