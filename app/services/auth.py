@@ -1,11 +1,12 @@
 import functools
 import jwt
+import bcrypt
 from datetime import datetime, timedelta
 from fastapi.responses import JSONResponse, RedirectResponse
 
 from ..config.settings import settings
 
-
+HASH_SENHA='$2b$12$Yc6QqjH6gyKZ6sa6Bd63XeegoDPOf2VELg8uJmDccNG1Qqay3dWpe'
 class Auth:
 
     def __init__(self) -> None:
@@ -13,7 +14,7 @@ class Auth:
         pass
     
     async def login(self, usuario: str, senha: str) -> JSONResponse:
-        if usuario=='aidmin' and senha=='aidmin':
+        if self.check_password(senha, HASH_SENHA):
             token = self.generate_token({"sub": usuario})
             response = JSONResponse(content={"message": "Login realizado com sucesso!"})
             response.set_cookie(
@@ -53,3 +54,13 @@ class Auth:
                 return await fn(request, *args, **kwargs)
             return wrapper
         return decorator
+
+    @staticmethod
+    def hash_password(password: str) -> str:
+        return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+    @staticmethod
+    def check_password(password: str, hashed_password: str) -> bool:
+        if not bcrypt.checkpw(password.encode(), hashed_password.encode()):
+            return False
+        return True

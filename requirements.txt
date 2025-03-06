@@ -11,3 +11,4 @@ gtts
 BeautifulSoup4
 pyjwt
 psutil
+bcrypt
