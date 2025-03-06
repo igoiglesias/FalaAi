@@ -18,7 +18,7 @@ router = APIRouter(
 @router.get("/login")
 async def get_login(request: Request):
     return templates.TemplateResponse(
-        "pages/login.html",
+        "pages/admin/login.html",
         {
             "request": request,
         }
@@ -31,10 +31,9 @@ async def post_login(request: Request, login: Login_Model):
 @router.get("/conversoes")
 @auth_svc.is_auth()
 async def get_conversoes(request: Request):
-    conversoes = await Conversoes_Model.all().order_by("created_at", "ip")
-    print(conversoes)
+    conversoes = await Conversoes_Model.all().order_by("-created_at", "ip")
     return templates.TemplateResponse(
-        "pages/conversoes.html",
+        "pages/admin/conversoes.html",
         {
             "request": request,
             "conversoes": conversoes,

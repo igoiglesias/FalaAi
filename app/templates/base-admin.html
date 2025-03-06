@@ -41,7 +41,6 @@
             padding: 10px;
             max-width: 1024px;
             margin: 0 auto;
-            min-height: 90vh;
         }
         footer{
             max-width: 1024px;
@@ -60,6 +59,13 @@
         .error{
             background-color: red;
         }
+        .admin-menu{
+            padding: 0 20px 0 20px;
+
+            & hr{
+                margin-top: 0;
+            }
+        }
     </style>
     
     <!-- Adicione aqui mais metatags ou links de CSS conforme necessário -->
@@ -67,6 +73,18 @@
     {% endblock %}
 </head>
 <body>
+    <header class="admin-menu">
+        <nav class="container">
+            <ul>
+                <li><a href="/admin/conversoes" class="contrast" style="font-weight: bold; font-size: 1.2rem;">FalaAi</a></li>
+            </ul>
+            <ul>
+                <li><a href="/admin/conversoes">Painel</a></li>
+                <li><a href="/admin/usuarios">Usuários</a></li>
+            </ul>
+        </nav>
+        <hr>
+    </header>
     <main>
         <div id="alert" class="alert" style="display: none;">
             <span id="alert-msg"></span>

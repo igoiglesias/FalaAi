@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.exceptions import HTTPException
@@ -46,11 +47,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.exception_handler(404)
+async def not_found_handler(request: Request, exc):
+    return templates.TemplateResponse(
+        "pages/404.html",
+        {
+            "request": request,
+        }
+    )
+
 @app.exception_handler(HTTPException)
 async def custom_http_exception_handler(request: Request, exc: HTTPException):
     """
     Define qual manipulador de erro será usado, dependendo do tipo de requisição.
     """
+    breakpoint()
     accept_header = request.headers.get("accept", "")
     if "application/json" in accept_header or request.url.path.startswith("/api"):
         return await api_error_handler(request, exc)
