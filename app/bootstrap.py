@@ -28,7 +28,18 @@ async def lifespan(app: FastAPI):
     await close_db()
 
 
-app = FastAPI(title=settings.APP_NAME, version=settings.APP_VERSION, lifespan=lifespan)
+app = FastAPI(
+    title=settings.APP_NAME,
+    description=settings.APP_DESCRIPTION,
+    version=settings.APP_VERSION,
+    lifespan=lifespan,
+    contact={
+        "name": "Agência Camp",
+        "email": "contato@agenciacamp.com.br",
+        "url": "https://falaai.agenciacamp.com.br",
+    },
+    license_info={"name": "MIT", "url": "https://opensource.org/licenses/MIT"},
+)
 
 templates = Jinja2Templates(directory=settings.TEMPLATE_FOLDER)
 
