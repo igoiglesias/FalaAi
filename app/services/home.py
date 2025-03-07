@@ -26,14 +26,14 @@ class Home:
         return text
 
     async def get_client_ip(self, request: Request):
-        client_ip = request.headers.get("CF-Connecting-IP")  # IP real via Cloudflare
+        client_ip = request.headers.get("CF-Connecting-IP")
 
-        if not client_ip:  # Se não estiver disponível, tenta X-Forwarded-For
+        if not client_ip:
             forwarded = request.headers.get("X-Forwarded-For")
             if forwarded:
-                client_ip = forwarded.split(",")[0]  # Primeiro IP da lista
+                client_ip = forwarded.split(",")[0]
             else:
-                client_ip = request.client.host  # Último recurso: IP direto
+                client_ip = request.client.host # type: ignore
 
         return client_ip
 

@@ -12,3 +12,4 @@ BeautifulSoup4
 pyjwt
 psutil
 bcrypt
+ruff

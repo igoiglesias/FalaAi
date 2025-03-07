@@ -1,0 +1,7 @@
+[tool.ruff]
+line-length = 88
+extend-select = ["ALL"]
+ignore = ["E501", "E203", "E722"]
+
+[tool.ruff.format]
+enable = true
