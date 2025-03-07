@@ -29,6 +29,7 @@
     <title>{% block title %}FalaAi{% endblock %}</title>
     
     <!-- Link para o arquivo CSS -->
+    <link rel="preload" href="{{ url_for('static', path='imgs/cover.jpg') }}" as="image">
     <link rel="preload" href="{{ url_for('static', path='css/pico.blue.min.css') }}" as="style">
     <link rel="stylesheet" href="{{ url_for('static', path='css/pico.blue.min.css') }}">
     <style>

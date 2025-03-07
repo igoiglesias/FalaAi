@@ -34,10 +34,10 @@
         "${workspaceFolder}/app"
     ],
     "emmet.includeLanguages": {
-        "jinja-html": "html"
+        "*.html": "jinja-html"
     },
     "files.associations": {
-        "*.html": "jinja-html"
+        "app/templates/*.html": "jinja-html"
     },
     "terminal.integrated.gpuAcceleration": "on",
     "terminal.integrated.env.linux": {
